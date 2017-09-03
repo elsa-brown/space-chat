@@ -21167,7 +21167,7 @@ var Home = function (_Component) {
               _react2.default.createElement(
                 'p',
                 { className: 'instructions-p' },
-                'Enter one of four virtual words and experience an online chatroom like never before. Use Spacechat on a desktop or mobile device with a VR headset. '
+                'Use Spacechat on a desktop or mobile device with a VR headset. Enter one of four virtual words and experience an online chatroom like never before.'
               )
             ),
             _react2.default.createElement(
@@ -21268,6 +21268,11 @@ var Home = function (_Component) {
                 { href: 'https://www.gracehopper.com/' },
                 'The Grace Hopper Program.'
               )
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'instructions-p' },
+              'Spacechat was built with React-Redux, sockets.io, and A-Frame.'
             ),
             _react2.default.createElement(
               'p',
