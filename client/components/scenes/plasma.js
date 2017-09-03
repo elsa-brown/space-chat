@@ -1,4 +1,4 @@
-// This component controls sphere rendering and animations of Knots.jsx. 
+// This component controls sphere rendering and animations of Plasma.jsx. 
 // Adapted from: (1) https://github.com/mrdoob/three.js/blob/master/examples/webgl_effects_anaglyph.html (2) https://github.com/aframevr/aframe/blob/master/examples/showcase/dynamic-lights/index.html 
 
 let knots = []
@@ -37,7 +37,6 @@ const createKnot = () => {
   let y = (Math.random() * 501) - 200
   let z = (Math.random() * 201) - 100
   knot.setAttribute('position', { x: x, y: y, z: z})
-  console.log('position is', x, y, z)
 
   knot.setAttribute('radius', `${Math.random() * 8}`)
   knot.setAttribute('radiusTubular', `${Math.random() * 8}`)
@@ -52,7 +51,6 @@ const createKnot = () => {
   // give each knot a unique id
   knots.push(knot)
   knot.setAttribute('id', `knot-${knots.length}`)
-  console.log('knot id is', knot, '-', knots.length)
 
   // set random knot into scene
   document.querySelector('a-scene').appendChild(knot)
@@ -65,7 +63,6 @@ const makeKnots = (numKnots) => {
     createKnot()
     numKnots--
   }
-  console.log('knots is', knots)
 }
 
 const updateKnotColor = (colorA, colorB) => {
@@ -78,7 +75,6 @@ const updateKnotColor = (colorA, colorB) => {
 }
 
 const setAmbientLightA = (colorA) => {
-  console.log('light A being created')
 
     let lightA = document.createElement('a-light')
 
@@ -97,7 +93,6 @@ const setAmbientLightA = (colorA) => {
 }
 
 const setAmbientLightB = (colorB) => {
-  console.log('light B being created')
 
     let lightB = document.createElement('a-light')
 
@@ -121,7 +116,6 @@ const updateLightColor = (colorC, colorD) => {
 }
 
 const makeRotatingLightX = () => {
-  console.log('lightX is being created')
   lightX = document.createElement('a-light')
   lightX.setAttribute('geometry', 'primitive: sphere; radius: 1.5')
   lightX.setAttribute('material', 'shader: flat; opacity: 0')
@@ -130,7 +124,6 @@ const makeRotatingLightX = () => {
 }
 
 const makeRotatingLightY = () => {
-  console.log('lightY is being created')
   lightY = document.createElement('a-light')
   lightY.setAttribute('geometry', 'primitive: sphere; radius: 2')
   lightY.setAttribute('material', 'shader: flat; opacity: 0')
@@ -163,28 +156,28 @@ const render = (timeStamp) => {
   lightY.setAttribute('position', { y: 108 * Math.cos(20 * timer + 2 * (2 * Math.PI)) })
 
   if (movementPath === "trig") {
-    for (var i = 0, il = knots.length; i < il; i++) {
-      var knot = knots[i];
+    for (let i = 0, il = knots.length; i < il; i++) {
+      let knot = knots[i];
       knot.setAttribute('position', { x: 50 * Math.cos(timer + i) })
       knot.setAttribute('position', { y: 50 * Math.sin(timer + i * 1.1) })
     }
   }
   else if (movementPath === "circleZ") {
-    for (var i = 0, il = knots.length; i < il; i++) {
-      var knot = knots[i];
+    for (let i = 0, il = knots.length; i < il; i++) {
+      let knot = knots[i];
       knot.setAttribute('position', { x: 80 * Math.sin(timer + i + (2 * Math.PI)) })
       knot.setAttribute('position', { z: 104 * Math.cos(timer + i + 3 + (2 * Math.PI)) })
     }
   }
   else if (movementPath === "coolness") {
-    for (var i = 0, il = knots.length; i < il; i++) {
-      var knot = knots[i];
+    for (let i = 0, il = knots.length; i < il; i++) {
+      let knot = knots[i];
       knot.setAttribute('position', { x: 40 * Math.sin(timer + i * 1.1 + (2 * Math.PI)) })
       knot.setAttribute('position', { y: 40 * Math.cos(timer + i + (2 * Math.PI)) })
     }
   } else if (movementPath === "pendulum") {
-    for (var i = 0, il = knots.length; i < il; i++) {
-      var knot = knots[i];
+    for (let i = 0, il = knots.length; i < il; i++) {
+      let knot = knots[i];
       knot.setAttribute('position', { x: 80 * Math.sin(timer + i + (2 * Math.PI)) })
       knot.setAttribute('position', { z: 80 * Math.cos(timer + i * 2 + (2 * Math.PI)) })
     }

@@ -5,7 +5,7 @@ export const SCENE_SET = 'SCENE_SET'
 export const setScene = (scene) => {
   return {
     type: SCENE_SET,
-    payload: scene
+    scene: scene
   }
 }
 

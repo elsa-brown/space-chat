@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import AssetLoader from './AssetLoader'
-import { initScene, initSky, initLight, initStarField, initPlanets, rotatePlanets, initPlanetCircle, updateSkyColor, updateLightColor } from './space'
+import AssetLoader from '../AssetLoader'
+import { initScene, initSky, initLight, initStarField, initPlanets, rotatePlanets, initPlanetCircle, updateSkyColor, updateLightColor } from './cosmos'
 
 // Option 1: scattered, rotating planets of various sizes
 // Option 2: ring of planets, each with its own orbit of small spheres
@@ -17,7 +17,7 @@ function chooseScene(option) {
   }
 }
 
-export default class Space extends Component {
+export default class Cosmos extends Component {
 
   constructor(props) {
     super(props)

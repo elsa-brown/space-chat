@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import AssetLoader from './AssetLoader'
+import AssetLoader from '../AssetLoader'
 
-import { initScene, makeCubes, makeLight, animate, updateColor, updateSpeed, stopAnimating } from './cubes.js'
+import { initScene, makeCubes, makeLight, animate, updateColor, updateSpeed, stopAnimating } from './ufo.js'
 
 
-export default class Cubes extends Component {
+export default class UFO extends Component {
 
   constructor(props) {
     super()

@@ -20,10 +20,10 @@ import { connect } from 'react-redux'
 import SpeechRecognition from 'react-speech-recognition'
 import PropTypes from 'prop-types'
 
-import Space from './Space.jsx'
-import Bubbles from './Bubbles.jsx'
-import Knots from './Knots.jsx'
-import Cubes from './Cubes.jsx'
+import Bubbles from './scenes/Bubbles.jsx'
+import Plasma from './scenes/Plasma.jsx'
+import Cosmos from './scenes/Cosmos.jsx'
+import UFO from './scenes/UFO.jsx'
 import { openSocket, closeSocket, updateRoster
        , joinChannel, sendMessage
        , receiveMessage, receiveSentiment } from '../sockets.js'
@@ -124,14 +124,14 @@ class Room extends Component {
       case 'bubbles':
         sceneComponent = <Bubbles currEmotion={currEmotion} primaryPersonality={primaryPersonality} sky={this.state.bubbleSky}/>
         break
-      case 'knots':
-        sceneComponent = <Knots currEmotion={currEmotion} primaryPersonality={primaryPersonality} primaryIntensity={primaryIntensity} />
+      case 'plasma':
+        sceneComponent = <Plasma currEmotion={currEmotion} primaryPersonality={primaryPersonality} primaryIntensity={primaryIntensity} />
         break
-      case 'space':
-        sceneComponent = <Space currEmotion={currEmotion} primaryPersonality={primaryPersonality} />
+      case 'cosmos':
+        sceneComponent = <Cosmos currEmotion={currEmotion} primaryPersonality={primaryPersonality} />
         break
-      case 'cubes':
-        sceneComponent = <Cubes roster={this.props.roster} 
+      case 'ufo':
+        sceneComponent = <UFO roster={this.props.roster} 
           currEmotion={currEmotion} sentimentScore={sentimentScore} />
         break
     }

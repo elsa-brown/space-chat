@@ -1,22 +1,22 @@
 import React, { Component } from 'react'
-import AssetLoader from './AssetLoader'
-import Avatars from './Avatars'
+import AssetLoader from '../AssetLoader'
+// import Avatars from '../Avatars'
 import { vecToStr } from '../utils'
 
 import { initScene, makeKnots, animate, stopAnimating
 	   , setAmbientLightA, setAmbientLightB
 	   , makeRotatingLightX, makeRotatingLightY
-	   , updateKnotColor, updateLightColor, updateSpeed, updatePath } from './knots.js'
+	   , updateKnotColor, updateLightColor, updateSpeed, updatePath } from './plasma.js'
 
-const Avatar = (props) => {
-	return (
-		<a-entity position={vecToStr(props.position)}>
-			<a-torus id="avatar" radius="1" opacity="0.6" metalness="1" spherical-env-map="#tiedye" />
-		</a-entity>
-	)
-}
+// const Avatar = (props) => {
+// 	return (
+// 		<a-entity position={vecToStr(props.position)}>
+// 			<a-torus id="avatar" radius="1" opacity="0.6" metalness="1" spherical-env-map="#tiedye" />
+// 		</a-entity>
+// 	)
+// }
 
-export default class Knots extends Component {
+export default class Plasma extends Component {
 
 	constructor(props) {
 		super()
@@ -45,7 +45,7 @@ export default class Knots extends Component {
 	componentWillReceiveProps() {
 		// hashes for translating emotion to color values
 		let emotionColorsA = {
-			anger: '#ff0000',     // red
+				anger: '#ff0000',     // red
     		surprise: '#ffcc00',  // pink
     		sadness: '#3366ff',   // blue
     		fear: '#333300',      // dark olive gray
@@ -129,19 +129,19 @@ export default class Knots extends Component {
   }
 
 	render() {
-		let roster = {
-		    a: {},
-		    b: {},
-		    c: {},
-		    d: {},
-		    e: {},
-		    f: {},
-		}
+		// let roster = {
+		//     a: {},
+		//     b: {},
+		//     c: {},
+		//     d: {},
+		//     e: {},
+		//     f: {},
+		// }
 
 		return (
 			<a-scene fog="type: exponential; color: purple">
 				<AssetLoader />
-				<Avatars Avatar={Avatar} roster={roster} />
+				{/* <Avatars Avatar={Avatar} roster={roster} /> */}
 
 				{/* Camera */}
 				<a-entity id="camera" position="0 0 -10" mouse-cursor="">
@@ -149,7 +149,7 @@ export default class Knots extends Component {
 				</a-entity>
 
 				{/* Skysphere */}
-				<a-sky id="sky" src="#tiedye"></a-sky>
+				<a-sky id="sky" src="#tiedye" />
 
 			</a-scene>
 	  )

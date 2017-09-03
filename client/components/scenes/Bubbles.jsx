@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AssetLoader from './AssetLoader'
+import AssetLoader from '../AssetLoader'
 
 import { initScene, makeBubbles, animate, sizeOrColor, updateSpeed, updatePath, stopAnimating } from './bubbles.js'
 
