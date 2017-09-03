@@ -10400,7 +10400,6 @@ var _index2 = _interopRequireDefault(_index);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var store = (0, _redux.createStore)(_index2.default, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)((0, _reduxLogger.createLogger)({ collapsed: true }), _reduxThunk2.default)));
-// import promise from 'redux-promise'
 
 exports.default = store;
 
@@ -27558,7 +27557,7 @@ var updateColor = function updateColor(color) {
 	light.setAttribute('intensity', '' + color[1]);
 };
 
-// updated speed based on intensity or a personality trait
+// updated speed based on intensity
 var updateSpeed = function updateSpeed(n) {
 	tickSpeed = n;
 };
@@ -28114,13 +28113,7 @@ exports.default = rootReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.openSocket = openSocket;
-exports.closeSocket = closeSocket;
-exports.joinChannel = joinChannel;
-exports.updateRoster = updateRoster;
-exports.sendMessage = sendMessage;
-exports.receiveMessage = receiveMessage;
-exports.receiveSentiment = receiveSentiment;
+exports.receiveSentiment = exports.receiveMessage = exports.sendMessage = exports.updateRoster = exports.joinChannel = exports.closeSocket = exports.openSocket = undefined;
 
 var _socket = __webpack_require__(373);
 
@@ -28132,55 +28125,55 @@ var _store2 = _interopRequireDefault(_store);
 
 var _sentimentReducer = __webpack_require__(92);
 
-var _rosterReducer = __webpack_require__(90);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import { addToRoster, deleteFromRoster, gotSentiment } from './reducers/rosterReducer.jsx'
 
 // enable text-to-speech in browser
 var synth = window.speechSynthesis;
-var voices = void 0;
-var socket = void 0;
+var voices = void 0,
+    socket = void 0;
 
-function openSocket(scene) {
+var openSocket = exports.openSocket = function openSocket(scene) {
   // open socket, connect to 'namespace' associated with scene
   console.log('connecting to namespace ', scene);
   socket = (0, _socket2.default)('/' + scene);
-}
+};
 
-function closeSocket(language) {
+var closeSocket = exports.closeSocket = function closeSocket(language) {
   console.log('emitting close me event');
   // disconnecting socket handled server-side
   socket.emit('close me', language);
-}
+};
 
-function joinChannel(language) {
+var joinChannel = exports.joinChannel = function joinChannel(language) {
   // subscribing to language channel handled server-side
   socket.emit('join request', language);
   voices = synth.getVoices();
-}
+};
 
-function updateRoster() {
+var updateRoster = exports.updateRoster = function updateRoster() {
   // when client added to roster
   socket.on('roster addition', function (addId) {
     console.log('received roster add event');
     // update store with latest addition to roster
-    _store2.default.dispatch((0, _rosterReducer.addToRoster)(addId));
+    _store2.default.dispatch(addToRoster(addId));
   });
 
   // when client removed from roster
   socket.on('roster deletion', function (deleteId) {
     console.log('received roster delete event');
     // update store with deletion from roster
-    _store2.default.dispatch((0, _rosterReducer.deleteFromRoster)(deleteId));
+    _store2.default.dispatch(deleteFromRoster(deleteId));
   });
-}
+};
 
-function sendMessage(messageText, lang) {
+var sendMessage = exports.sendMessage = function sendMessage(messageText, lang) {
   console.log('sending message ', messageText, ' in language ', lang);
   socket.emit('message', { messageText: messageText, lang: lang });
-}
+};
 
-function receiveMessage(clientLang) {
+var receiveMessage = exports.receiveMessage = function receiveMessage(clientLang) {
   // when client receives message from language channel
   socket.on('got message', function (_ref) {
     var translatedBool = _ref.translatedBool,
@@ -28195,11 +28188,11 @@ function receiveMessage(clientLang) {
     })[0];
     synth.speak(utterance);
   });
-}
+};
 
-function receiveSentiment() {
+var receiveSentiment = exports.receiveSentiment = function receiveSentiment() {
   socket.on('got sentiment', function (data) {
-    return _store2.default.dispatch((0, _rosterReducer.gotSentiment)(data));
+    return _store2.default.dispatch(gotSentiment(data));
   });
 
   socket.on('got sentiment', function (_ref2) {
@@ -28248,7 +28241,7 @@ function receiveSentiment() {
     _store2.default.dispatch((0, _sentimentReducer.updateSentiment)(sentScore));
     _store2.default.dispatch((0, _sentimentReducer.updateSpeaker)(speaker));
   });
-}
+};
 
 /***/ }),
 /* 184 */

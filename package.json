@@ -27,6 +27,7 @@
     "express": "~4.10.2",
     "gl-matrix": "^2.3.2",
     "indico.io": "^0.10.5",
+    "morgan": "^1.8.2",
     "path": "^0.12.7",
     "peer": "^0.2.8",
     "prop-types": "^15.5.9",

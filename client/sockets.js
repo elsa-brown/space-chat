@@ -1,32 +1,32 @@
-import io from 'socket.io-client'
-import store from './store.jsx'
-import { primaryEmotion, primaryIntensity, primaryPersonality, updateSentiment, updateSpeaker } from './reducers/sentimentReducer.jsx'
-import { addToRoster, deleteFromRoster, gotSentiment } from './reducers/rosterReducer.jsx'
+import io from 'socket.io-client';
+import store from './store.jsx';
+import { primaryEmotion, primaryIntensity, primaryPersonality, updateSentiment, updateSpeaker } from './reducers/sentimentReducer.jsx';
+// import { addToRoster, deleteFromRoster, gotSentiment } from './reducers/rosterReducer.jsx'
 
 // enable text-to-speech in browser
 const synth = window.speechSynthesis
-let voices
-let socket
+let voices,
+    socket
 
-export function openSocket(scene) {
+export const openSocket = (scene) => {
   // open socket, connect to 'namespace' associated with scene
   console.log('connecting to namespace ', scene)
   socket = io(`/${scene}`)
 }
 
-export function closeSocket(language) {
+export const closeSocket = (language) => {
   console.log('emitting close me event')
   // disconnecting socket handled server-side
   socket.emit('close me', language)
 }
 
-export function joinChannel(language) {
+export const joinChannel = (language) => {
   // subscribing to language channel handled server-side
   socket.emit('join request', language)
   voices = synth.getVoices()
 }
 
-export function updateRoster() {
+export const updateRoster = () => {
   // when client added to roster
   socket.on('roster addition', addId => {
     console.log('received roster add event')
@@ -43,12 +43,12 @@ export function updateRoster() {
 
 }
 
-export function sendMessage(messageText, lang) {
+export const sendMessage = (messageText, lang) => {
   console.log('sending message ', messageText, ' in language ', lang)
   socket.emit('message', { messageText, lang })
 }
 
-export function receiveMessage(clientLang) {
+export const receiveMessage = (clientLang) => {
   // when client receives message from language channel
   socket.on('got message', ({ translatedBool, messageText, lang }) => {
     console.log('incoming message ', messageText, ' in language ', lang)
@@ -61,7 +61,7 @@ export function receiveMessage(clientLang) {
   })
 }
 
-export function receiveSentiment() {
+export const receiveSentiment = () => {
   socket.on('got sentiment', data => store.dispatch(gotSentiment(data)))
 
   socket.on('got sentiment', ({ emotion, sentiment, personality, speaker }) => {
