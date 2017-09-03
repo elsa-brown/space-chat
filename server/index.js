@@ -7,15 +7,11 @@ const socketLogic = require('./socket');
 
 const PORT = process.env.PORT || 3002;
 const path = require('path');
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 // set up body parsing middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// server logging
-// app.use(morgan('dev'));
 
 // serve up static files
 app.use(express.static(path.join(__dirname, '../public')));
