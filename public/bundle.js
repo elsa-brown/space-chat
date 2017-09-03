@@ -21167,7 +21167,7 @@ var Home = function (_Component) {
               _react2.default.createElement(
                 'p',
                 { className: 'instructions-p' },
-                'Enter one of four virtual words and experience an online chatroom like never before. Use Spacechat on a desktop, or a mobile device with a VR headset. '
+                'Enter one of four virtual words and experience an online chatroom like never before. Use Spacechat on a desktop or mobile device with a VR headset. '
               )
             ),
             _react2.default.createElement(
@@ -21181,7 +21181,7 @@ var Home = function (_Component) {
               _react2.default.createElement(
                 'p',
                 { className: 'instructions-p' },
-                'Simply talk into your built-in or external microphone on your computer or mobile device. What you say, and what others say to you, will be instantly translated into one of 12 languages.'
+                'Speak into your built-in or external microphone on your computer or mobile device. What you say, and what others say to you, will be instantly translated into one of 12 languages.'
               )
             ),
             _react2.default.createElement(
@@ -21195,7 +21195,7 @@ var Home = function (_Component) {
               _react2.default.createElement(
                 'p',
                 { className: 'instructions-p' },
-                'As you and others talk, the virtual space will respond with movement and color changes, depending on how you feel, your personality, or sentiment.'
+                'As you and others talk, the virtual space will respond with movement and color changes depending on how you feel, your personality, and the sentiment of your conversation.'
               )
             )
           ),
@@ -21205,7 +21205,9 @@ var Home = function (_Component) {
             _react2.default.createElement(
               'p',
               null,
-              'Before using Spacechat, please make sure you have functioning audio (input & output), and that you are using a WebGL and Web Speech API compatible desktop or mobile browser (such as Google Chrome). For more information about compatibility, click ',
+              'Before using Spacechat, please make sure you have functioning audio (input & output), and are using a WebGL and Web Speech API compatible',
+              _react2.default.createElement('br', null),
+              'desktop or mobile browser (such as Google Chrome). For more information about compatibility, click ',
               _react2.default.createElement(
                 'a',
                 { href: 'http://caniuse.com/#feat=webgl' },
@@ -21224,6 +21226,58 @@ var Home = function (_Component) {
             'div',
             { className: 'down-chevron' },
             _react2.default.createElement('span', { className: 'glyphicon glyphicon-chevron-down', 'aria-hidden': 'true' })
+          ),
+          _react2.default.createElement(
+            'div',
+            { id: 'about' },
+            _react2.default.createElement(
+              'h3',
+              { className: 'instructions-header' },
+              'About'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'instructions-p' },
+              'Spacechat is a virtual reality chatroom that allows users to interpret and experience speech with multiple senses. Created by ',
+              _react2.default.createElement(
+                'a',
+                { href: 'http://elsa-brown.com' },
+                'Elsa Brown'
+              ),
+              ', ',
+              _react2.default.createElement(
+                'a',
+                { href: 'https://github.com/thefishter' },
+                'Nicole Fish'
+              ),
+              ', ',
+              _react2.default.createElement(
+                'a',
+                { href: 'http://keziyah.com' },
+                'Keziyah Lewis'
+              ),
+              ', and ',
+              _react2.default.createElement(
+                'a',
+                { href: 'https://github.com/ssundby' },
+                'Stefanie Sundby'
+              ),
+              ' over two weeks as a senior capstone project for ',
+              _react2.default.createElement(
+                'a',
+                { href: 'https://www.gracehopper.com/' },
+                'The Grace Hopper Program.'
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'instructions-p' },
+              _react2.default.createElement(
+                'a',
+                { href: 'https://github.com/space-chat/space-chat' },
+                'View on GitHub.'
+              )
+            )
           )
         )
       );
