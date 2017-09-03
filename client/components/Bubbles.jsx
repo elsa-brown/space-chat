@@ -93,14 +93,13 @@ export default class Bubbles extends Component {
 
     render() {
         return (
-
-                    <a-scene vr-mode-ui="enabled: true">
-                        <AssetLoader />
-                        <a-entity id="bubbleCamera" camera="userHeight: 1.6" look-controls
-                         mouse-cursor="">
-                        </a-entity>
-                        <a-sky src={this.props.sky}></a-sky>
-                    </a-scene>
+          <a-scene vr-mode-ui="enabled: true">
+              <AssetLoader />
+              <a-entity id="bubbleCamera" camera="userHeight: 1.6" look-controls
+               mouse-cursor="">
+              </a-entity>
+              <a-sky src={this.props.sky}></a-sky>
+          </a-scene>
         )
     }
 }

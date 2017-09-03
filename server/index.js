@@ -25,10 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // serve up static files
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '../public')))
 
 app.get('/*', (req, res, next) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+  res.sendFile(path.join(__dirname, '../public', 'index.html'))
 })
 
 // store languages of connected sockets ("state")
@@ -106,11 +106,10 @@ function setUpNamespace (namespace) {
       })
 
       // 3) send text to indico for analysis
-      indico.analyzeText([messageText], { apis: ["personality", "sentiment", "emotion"] })
+      indico.analyzeText([messageText], { apis: ['personality', 'sentiment', 'emotion'] })
         .then(data => {
           // add socket id to data payload
           data.speaker = socket.id
-           console.log("DATA", data)
           // io.of(namespce).emit sends to ALL sockets in namespace, INCL original sender
           io.of(namespace).emit('got sentiment', data)
         })

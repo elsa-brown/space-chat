@@ -91,7 +91,7 @@ const updateColor = (color) => {
 }
 
 
-// updated speed based on intensity or a personality trait
+// updated speed based on intensity
 const updateSpeed = (n) => {
 	tickSpeed = n
 }

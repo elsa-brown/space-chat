@@ -3,7 +3,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
+import {Router, Route, browserHistory} from 'react-router'
 
 import store from './store.jsx'
 
@@ -16,7 +16,7 @@ render(
     <Router history={browserHistory}>
       <Route path="/" component={Home} />
       <Route path="/room" component={Room} />
-      <Route path='*' component={NotFound} />
+      <Route path="*" component={NotFound} />
     </Router>
   </Provider>,
   document.getElementById('app')
