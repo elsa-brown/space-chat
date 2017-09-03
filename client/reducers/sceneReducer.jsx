@@ -16,7 +16,7 @@ export const setScene = (scene) => {
 const sceneReducer = (state = [], action) => {
   switch (action.type) {
     case SCENE_SET:
-      return action.payload
+      return action.scene
     default: return state
   }
 }

@@ -24,8 +24,6 @@ app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../public', 'index.html'))
 });
 
-app.listen(PORT, () => console.log('listening on 3002'));
-
 app.use((err, req, res, next) => {
   console.error(err);
   console.error(err.stack);
@@ -46,11 +44,12 @@ const translate = Translate({
 }) 
 
 // store languages of connected sockets ("state")
-const namespaces = ['bubbles', 'plasma', 'cosmos', 'ufo']
-let languages = []
+let languages = [], namespaces = ['bubbles', 'plasma', 'cosmos', 'ufo']
 
-const setUpNamespace = (namespace) => {
-  console.log('setting up namespace', namespace)
+namespaces.forEach(namespace => setUpNamespace(namespace))
+
+function setUpNamespace (namespace) {
+	console.log('setting up namespace', namespace)
   // create namespace as instance of io
   let nsp = io.of(`/${namespace}`)
 
@@ -80,7 +79,7 @@ const setUpNamespace = (namespace) => {
       console.log('socket ', socket.id, ' joined channel! lang: ', language)
       // check that language choice is not empty, and not already stored
         // ^ the first part of this check may no longer be necessary, due to the lang default bug fix
-      if(language && languages.indexOf(language) === -1)
+      if (language && languages.indexOf(language) === -1)
         // 1) store socket's selected language server-side
         languages.push(language)
       console.log('all languages on server state are: ', languages)
@@ -120,10 +119,11 @@ const setUpNamespace = (namespace) => {
       })
 
       // 3) send text to indico for analysis
-      indico.analyzeText([messageText], { apis: ['personality', 'sentiment', 'emotion'] })
+      indico.analyzeText([messageText], { apis: ["personality", "sentiment", "emotion"] })
         .then(data => {
           // add socket id to data payload
           data.speaker = socket.id
+           console.log("DATA", data)
           // io.of(namespce).emit sends to ALL sockets in namespace, INCL original sender
           io.of(namespace).emit('got sentiment', data)
         })
@@ -133,5 +133,7 @@ const setUpNamespace = (namespace) => {
   })
 }
 
-namespaces.forEach(namespace => setUpNamespace(namespace))
+server.listen(PORT, () => {
+  console.log('listening on 3002 hey girrrlll')
+})
 
