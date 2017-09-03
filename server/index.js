@@ -4,6 +4,10 @@ const server = require('http').Server(app);
 const socketio = require('socket.io');
 const io = socketio(server);
 
+// vendor APIs for translation and sentiment analysis of messages
+const translate = require('./vendor/googleTranslate');
+const indico = require('./vendor/indico')
+
 const PORT = process.env.PORT || 3002;
 
 const path = require('path');
@@ -29,19 +33,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).send(err.message || 'Internal server error.')
 })
-
-// import and authenticate with Indico Text APIs
-const indico = require('indico.io')
-indico.apiKey = 'e5feeac8e479a303fab000f4b7e0287c'
-
-// import the Google Cloud Translate API
-const Translate = require('@google-cloud/translate')
-// instantiate a client
-const projectId = 'space-chat-166520'
-const translate = Translate({
-  projectId: projectId,
-  keyFilename: './servicekey.json'
-}) 
 
 // store languages of connected sockets ("state")
 let languages = [], namespaces = ['bubbles', 'plasma', 'cosmos', 'ufo']
