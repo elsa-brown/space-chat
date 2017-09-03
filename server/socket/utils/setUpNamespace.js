@@ -1,9 +1,10 @@
 // vendor APIs for translation and sentiment analysis of messages
-const translate = require('../vendor/googleTranslate');
-const indico = require('../vendor/indico');
+const { translate, indico } = require('../../vendor');
+
+// store languages here, like 'state'
+let languages = [];
 
 module.exports = (namespace, io) => {
-  let languages = [];
   console.log('setting up namespace', namespace)
   // create namespace as instance of io
   let nsp = io.of(`/${namespace}`)
@@ -87,3 +88,21 @@ module.exports = (namespace, io) => {
     })
   })
 };
+
+// const translateMessage = () =>{
+//   if (targetLang !== lang ) {
+//     console.log('server translating message into ', targetLang)
+//     translate.translate(messageText, targetLang)
+//       .then(results => {
+//         // 3a) emit each translation to each language channel
+//         let translation = results[0]
+//         console.log('translation successful: ', translation)
+//         // server sends to all sockets in language channel
+//         nsp.in(targetLang).emit('got message', {
+//           translatedBool: true,
+//           messageText: translation,
+//           lang: targetLang })
+//       })
+//       .catch(console.error)
+//   }
+// }

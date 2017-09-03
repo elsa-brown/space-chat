@@ -1,5 +1,4 @@
-const scenes =  require('./sceneNames');
-const setUpNamespace = require('./setUpNamespace');
+const { scenes, setUpNamespace } = require('./utils');
 
 const initializeNamespaces = (io) => {
   scenes.forEach(scene => setUpNamespace(scene, io))
