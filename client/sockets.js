@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
-import store from './store.jsx';
-import { primaryEmotion, primaryIntensity, primaryPersonality, updateSentiment, updateSpeaker } from './reducers/sentimentReducer.jsx';
-import { addToRoster, deleteFromRoster, gotSentiment } from './reducers/rosterReducer.jsx'
+import store from './store';
+import { primaryEmotion, primaryIntensity, primaryPersonality, updateSentiment, updateSpeaker } from './reducers/sentimentReducer';
+import { addToRoster, deleteFromRoster, gotSentiment } from './reducers/rosterReducer'
 
 // enable text-to-speech in browser
 const synth = window.speechSynthesis
