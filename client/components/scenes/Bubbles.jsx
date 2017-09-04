@@ -20,7 +20,7 @@ export default class Bubbles extends Component {
 
   componentDidMount() {
     initScene()
-    makeBubbles(200, this.props.sky, this.state.color)
+    makeBubbles(200, '#blossoms', this.state.color)
     animate()
   }
 
@@ -64,10 +64,10 @@ export default class Bubbles extends Component {
         this.handleSizeOrColor()
       } else {
         //for surprise 
-        sizeOrColor(0.4, this.props.sky, "#FF8300", 3) //orange
-        sizeOrColor(0.4, this.props.sky, "#0FB235", 4) //green
-        sizeOrColor(0.4, this.props.sky, "#5227B2", 5) //purple
-        sizeOrColor(0.4, this.props.sky, "#FFD437", 7) //yellow
+        sizeOrColor(0.4, '#blossoms', "#FF8300", 3) //orange
+        sizeOrColor(0.4, '#blossoms', "#0FB235", 4) //green
+        sizeOrColor(0.4, '#blossoms', "#5227B2", 5) //purple
+        sizeOrColor(0.4, '#blossoms', "#FFD437", 7) //yellow
       }
 
       updatePath(this.state.pattern)
@@ -88,7 +88,7 @@ export default class Bubbles extends Component {
 
     //Handles changing for all emotions except surprise
     handleSizeOrColor() {
-        sizeOrColor(this.state.scale, this.props.sky, this.state.color, 3)
+        sizeOrColor(this.state.scale, '#blossoms', this.state.color, 3)
     }
 
     render() {
@@ -98,7 +98,7 @@ export default class Bubbles extends Component {
               <a-entity id="bubbleCamera" camera="userHeight: 1.6" look-controls
                mouse-cursor="">
               </a-entity>
-              <a-sky src={this.props.sky}></a-sky>
+              <a-sky id="sky" src="#blossoms" />
           </a-scene>
         )
     }

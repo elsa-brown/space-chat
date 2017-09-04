@@ -10,16 +10,16 @@ import store from './store';
 import SpeechRecognition from 'react-speech-recognition';
 
 import Home from './components/Home';
-import SceneContainer from './components/SceneContainer.jsx';
+import SceneContainer from './components/SceneContainer';
 import NotFound from './components/NotFound';
 
-const Scene = SpeechRecognition(SceneContainer);
+const EnhancedSceneContainer = SpeechRecognition(SceneContainer);
 
 render(
   <Provider store={store} >
     <Router history={browserHistory}>
       <Route path="/" component={Home} />
-      <Route path="/spacechat" component={Scene} />
+      <Route path="/spacechat" component={EnhancedSceneContainer} />
       <Route path="*" component={NotFound} />
     </Router>
   </Provider>,

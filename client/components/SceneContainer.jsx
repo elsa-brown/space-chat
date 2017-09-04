@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 
 // higher order component that allows Room to transcribe speech
 // import SpeechRecognition from 'react-speech-recognition'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 import Bubbles from './scenes/Bubbles.jsx'
 import Plasma from './scenes/Plasma.jsx'
@@ -29,12 +29,12 @@ import { openSocket, closeSocket, updateRoster
        , receiveMessage, receiveSentiment } from '../sockets.js'
 
 
-const propTypes = {
-  // props injected by SpeechRecognition
-  transcript: PropTypes.string,
-  resetTranscript: PropTypes.func,
-  browserSupportsSpeechRecognition: PropTypes.bool
-}
+// const propTypes = {
+//   // props injected by SpeechRecognition
+//   transcript: PropTypes.string,
+//   resetTranscript: PropTypes.func,
+//   browserSupportsSpeechRecognition: PropTypes.bool
+// }
 
 class SceneContainer extends Component {
   constructor(props) {
@@ -48,11 +48,11 @@ class SceneContainer extends Component {
 
   componentWillMount() {
     //choose a random sky for Bubbles
-    const skies = ["#blossoms", "#colors", "#krabi"]
+    const skies = ['#blossoms', '#colors', '#krabi']
     //establish new socket connection to 'namespace' associated with scene
     openSocket(this.props.scene)
-    
-    this.setState({ 
+
+    this.setState({
       bubbleSky: skies[Math.floor(Math.random() * 3)],
       language: this.props.language,
       langDict: {
@@ -146,7 +146,7 @@ class SceneContainer extends Component {
   }
 }
 
-SceneContainer.propTypes = propTypes
+// SceneContainer.propTypes = propTypes
 // const EnhancedRoom = SpeechRecognition(SceneContainer)
 
 const mapState = ({language, sentiment, scene, roster}) => ({language, sentiment, scene, roster})
