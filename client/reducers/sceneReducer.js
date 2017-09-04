@@ -1,24 +1,21 @@
-// CONSTANTS
-export const SCENE_SET = 'SCENE_SET'
+const SET_SCENE = 'SET_SCENE';
 
-// ACTIONS
 export const setScene = (scene) => {
+	console.log('inside setScene. scene is ', scene)
   return {
-    type: SCENE_SET,
+    type: SET_SCENE,
     scene: scene
   }
 }
 
-// ACTION CREATORS
-
-
-// REDUCER
 const sceneReducer = (state = [], action) => {
   switch (action.type) {
-    case SCENE_SET:
-      return action.scene
-    default: return state
+    case SET_SCENE:
+      return action.scene;
+    default:
+			return state;
   }
 }
 
-export default sceneReducer
+export default sceneReducer;
+

@@ -1,25 +1,19 @@
-// CONSTANTS
 export const LANGUAGE_SET = 'LANGUAGE_SET';
 
-// ACTIONS
-
-
-// ACTION CREATORS
-export const setLanguage = (lang) => {
+export const setLanguage = (language) => {
   return {
     type: LANGUAGE_SET,
-    payload: lang
+    language: language
   }
-}
+};
 
-// REDUCER
 const languageReducer = (state = [], action) => {
   switch (action.type) {
     case LANGUAGE_SET:
-      return action.payload
+      return action.language
     default: return state
   }
-}
+};
 
 export default languageReducer;
 
