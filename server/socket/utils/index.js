@@ -1,4 +1,4 @@
 const scenes = require('./scenes');
-const setUpNamespace = require('./setUpNamespace');
+const socketUtils = require('./socketUtils');
 
-module.exports = { scenes, setUpNamespace }
+module.exports = { scenes, socketUtils };
