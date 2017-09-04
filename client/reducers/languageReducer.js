@@ -1,5 +1,5 @@
 // CONSTANTS
-export const LANGUAGE_SET = "LANGUAGE_SET"
+export const LANGUAGE_SET = 'LANGUAGE_SET';
 
 // ACTIONS
 
@@ -21,5 +21,5 @@ const languageReducer = (state = [], action) => {
   }
 }
 
-export default languageReducer
+export default languageReducer;
 
