@@ -1,9 +1,8 @@
-// CONSTANTS
 export const ADDED_TO_ROSTER = 'ADDED_TO_ROSTER'
 export const DELETED_FROM_ROSTER = 'DELETED_FROM_ROSTER'
 export const GOT_SENTIMENT = 'GOT_SENTIMENT'
 
-// ACTIONS
+// ACTION CREATORS
 export const addToRoster = (id) => {
   return {
     type: ADDED_TO_ROSTER,
@@ -24,9 +23,6 @@ export const gotSentiment = (payload) => {
     payload
   }
 }
-
-// ACTION CREATORS
-
 
 // REDUCER
 const rosterReducer = (state = {}, action) => {

@@ -4,15 +4,15 @@ const initialState = {
   primaryPersonality: [],
   sentimentScore: [],
   speaker: ''
-}
+};
 
 /* ------------------    CONSTANTS    ------------------ */
 
-export const UPDATE_PRIMARY_EMO = "UPDATE_PRIMARY_EMO"
-export const UPDATE_PRIMARY_INTENSITY = "UPDATE_PRIMARY_INTENSITY"
-export const UPDATE_PRIMARY_PERSONALITY = "UPDATE_PRIMARY_PERSONALITY"
-export const UPDATE_SENTIMENT_SCORE = "UPDATE_SENTIMENT_SCORE"
-export const UPDATE_SPEAKER = "UPDATE_SPEAKER"
+export const UPDATE_PRIMARY_EMO = 'UPDATE_PRIMARY_EMO';
+export const UPDATE_PRIMARY_INTENSITY = 'UPDATE_PRIMARY_INTENSITY';
+export const UPDATE_PRIMARY_PERSONALITY = 'UPDATE_PRIMARY_PERSONALITY';
+export const UPDATE_SENTIMENT_SCORE = 'UPDATE_SENTIMENT_SCORE';
+export const UPDATE_SPEAKER = 'UPDATE_SPEAKER';
 
 /* ------------------    ACTIONS    ------------------ */
 // Take sentiment analysis data sent back from server upon calling receiveSentiment()
@@ -33,7 +33,7 @@ export const primaryIntensity = (value) => {
 
 export const primaryPersonality = (personality) => {
   return {
-    type: UPDATE_PRIMARY_PERSONALITY, 
+    type: UPDATE_PRIMARY_PERSONALITY,
     payload: personality
   }
 }
@@ -85,9 +85,3 @@ export default function sentimentReducer(state = initialState, action) {
 
   return newState
 }
-
-
-
-
-
-

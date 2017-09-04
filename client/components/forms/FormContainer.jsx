@@ -7,17 +7,17 @@ import LanguageMenu from './LanguageMenu';
 import SceneButtons from './SceneButtons.jsx';
 
 class FormContainer extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			language: ''
 		}
 
-		this.handleLanguageChange = this.handleLanguageChange.bind(this);
+		this.selectLanguage = this.selectLanguage.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 	}
 
-	handleLanguageChange(evt) {
+	selectLanguage(evt) {
 		let language = evt.target.value;
 		console.log('language', language)
     this.setState({ language: language });
@@ -35,7 +35,7 @@ class FormContainer extends Component {
 		console.log('this.state.language ', this.state.language)
 		return (
 			<div>
-        <LanguageMenu handleLanguageChange={this.handleLanguageChange} />
+        <LanguageMenu selectLanguage={this.selectLanguage} />
         <SceneButtons handleClick={this.handleClick} />
       </div>
 		)
@@ -43,3 +43,4 @@ class FormContainer extends Component {
 }
 
 export default connect(null, { setLanguage, setScene })(FormContainer);
+

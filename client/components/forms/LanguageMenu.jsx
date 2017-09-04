@@ -2,12 +2,12 @@ import React from 'react';
 
 const LanguageMenu = (props) => {
 
-	const handleLanguageChange = props.handleLanguageChange;
+	const selectLanguage = props.selectLanguage;
 
 	return (
     <div className="form">
       <label className="control-label">Select your language:</label>
-      <select onChange={props.handleLanguageChange} className="form-control" id="select" >
+      <select onChange={props.selectLanguage} className="form-control" id="select" >
         <option value="en">English</option>
         <option value="es">Spanish</option>
         <option value="zh">Chinese</option>

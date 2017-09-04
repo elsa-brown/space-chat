@@ -41,19 +41,15 @@ class SceneContainer extends Component {
     super(props)
     this.state = {
       language: '',
-      langDict: {},
-      bubbleSky: '#blossoms'
+      langDict: {}
     }
   }
 
   componentWillMount() {
-    //choose a random sky for Bubbles
-    const skies = ['#blossoms', '#colors', '#krabi']
     //establish new socket connection to 'namespace' associated with scene
     openSocket(this.props.scene)
 
     this.setState({
-      bubbleSky: skies[Math.floor(Math.random() * 3)],
       language: this.props.language,
       langDict: {
         en: 'en-US',
@@ -122,7 +118,7 @@ class SceneContainer extends Component {
 
     switch (scene) {
       case 'bubbles':
-        sceneComponent = <Bubbles currEmotion={currEmotion} primaryPersonality={primaryPersonality} sky={this.state.bubbleSky}/>
+        sceneComponent = <Bubbles currEmotion={currEmotion} primaryPersonality={primaryPersonality} />
         break
       case 'plasma':
         sceneComponent = <Plasma currEmotion={currEmotion} primaryPersonality={primaryPersonality} primaryIntensity={primaryIntensity} />
@@ -145,9 +141,6 @@ class SceneContainer extends Component {
     )
   }
 }
-
-// SceneContainer.propTypes = propTypes
-// const EnhancedRoom = SpeechRecognition(SceneContainer)
 
 const mapState = ({language, sentiment, scene, roster}) => ({language, sentiment, scene, roster})
 

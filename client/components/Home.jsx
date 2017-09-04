@@ -1,12 +1,11 @@
 import React from 'react';
 
-import Intro from './homepage/Intro.jsx';
+import Intro from './homepage/Intro';
+import FormContainer from './forms/FormContainer';
 import Chevron from './homepage/Chevron';
 import Instructions from './homepage/Instructions';
 import Compatibility from './homepage/Compatibility';
 import About from './homepage/About';
-
-import FormContainer from './forms/FormContainer';
 
 const Home = () => {
   return (
