@@ -7,15 +7,19 @@ import {Router, Route, browserHistory} from 'react-router';
 
 import store from './store';
 
-import Home from './components/Home.jsx';
-import Room from './components/Room.jsx';
-import NotFound from './components/NotFound.jsx';
+import SpeechRecognition from 'react-speech-recognition';
+
+import Home from './components/Home';
+import SceneContainer from './components/SceneContainer.jsx';
+import NotFound from './components/NotFound';
+
+const Scene = SpeechRecognition(SceneContainer);
 
 render(
   <Provider store={store} >
     <Router history={browserHistory}>
       <Route path="/" component={Home} />
-      <Route path="/room" component={Room} />
+      <Route path="/spacechat" component={Scene} />
       <Route path="*" component={NotFound} />
     </Router>
   </Provider>,

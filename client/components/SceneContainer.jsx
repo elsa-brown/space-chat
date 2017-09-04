@@ -17,7 +17,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 // higher order component that allows Room to transcribe speech
-import SpeechRecognition from 'react-speech-recognition'
+// import SpeechRecognition from 'react-speech-recognition'
 import PropTypes from 'prop-types'
 
 import Bubbles from './scenes/Bubbles.jsx'
@@ -36,7 +36,7 @@ const propTypes = {
   browserSupportsSpeechRecognition: PropTypes.bool
 }
 
-class Room extends Component {
+class SceneContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -146,10 +146,10 @@ class Room extends Component {
   }
 }
 
-Room.propTypes = propTypes
-const EnhancedRoom = SpeechRecognition(Room)
+SceneContainer.propTypes = propTypes
+// const EnhancedRoom = SpeechRecognition(SceneContainer)
 
 const mapState = ({language, sentiment, scene, roster}) => ({language, sentiment, scene, roster})
 
-export default connect(mapState, null)(EnhancedRoom)
+export default connect(mapState, null)(SceneContainer);
 
