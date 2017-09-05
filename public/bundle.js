@@ -24522,19 +24522,6 @@ var Bubbles = function (_Component) {
 
   return Bubbles;
 }(_react.Component);
-//Emotions: Change bubble color
-//Anger:              Bubbles turn red + increase speed
-//Joy:                Bubbles turn yellow  
-//Sadness:            Bubbles turn blue + decrease in #
-//Fear:               Bubbles turn gray + stand still
-//Surprise:           Bubbles turn orange and increase in #
-
-//Personality: 
-//Extraversion:       Bubbles increase in size and do a "trig"
-//Conscientiousness:  Bubbles do a "coolness" pattern
-//Openness:           Bubbles do a circleZ pattern
-//Agreeableness:      Bubbles do a "pendulum" pattern 
-
 
 exports.default = Bubbles;
 
@@ -24690,7 +24677,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import Avatars from '../Avatars'
+// import Avatars from '../Avatars';
 
 
 // const Avatar = (props) => {
@@ -24701,20 +24688,34 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // 	)
 // }
 
+// maps emotion to color
+var paletteHash = {
+	anger: ['#FF0000', '#FF6600', '#FF0000', '#FF6600'], // red, orange, red, orange
+	surprise: ['#FFCC00', '#FFCC66', '#FF6600', '#FF66FF'], // pink, peach, pink, pink
+	sadness: ['#3366FF', '#003366', '#00CC00', '#330000'], // blue, dark blue, green, brown
+	fear: ['#333300', '#666633', '#330000', '#330000'], // dark ray, olive green, brown, brown
+	joy: ['#FFFA00', '#FFFFFF', '#FFFF00', '#FFFFFF'] // yellow, white, gold, white
+
+
+	// maps personality traits to movement paths
+};var movementHash = {
+	extraversion: 'trig',
+	conscientiousness: 'coolness',
+	openness: 'circleZ',
+	agreeableness: 'pendulum'
+};
+
 var Plasma = function (_Component) {
 	_inherits(Plasma, _Component);
 
 	function Plasma(props) {
 		_classCallCheck(this, Plasma);
 
-		var _this = _possibleConstructorReturn(this, (Plasma.__proto__ || Object.getPrototypeOf(Plasma)).call(this));
+		var _this = _possibleConstructorReturn(this, (Plasma.__proto__ || Object.getPrototypeOf(Plasma)).call(this, props));
 
 		_this.state = {
 			numKnots: 60,
-			colorA: '#ff6600', // yellow
-			colorB: '#993300', // burnt orange
-			colorC: '#FFFFFF',
-			colorD: '#FFFFFF',
+			palette: ['#FFFA00', '#FFFFFF', '#FFFF00', '#FFFFFF'],
 			rate: 0.00005,
 			path: 'trig'
 		};
@@ -24726,8 +24727,8 @@ var Plasma = function (_Component) {
 		value: function componentDidMount() {
 			(0, _plasma.initScene)();
 			(0, _plasma.makeKnots)(this.state.numKnots);
-			(0, _plasma.setAmbientLightA)(this.state.colorA);
-			(0, _plasma.setAmbientLightB)(this.state.colorB);
+			(0, _plasma.setAmbientLightA)(this.state.palette[0]);
+			(0, _plasma.setAmbientLightB)(this.state.palette[1]);
 			(0, _plasma.makeRotatingLightX)();
 			(0, _plasma.makeRotatingLightY)();
 			(0, _plasma.animate)();
@@ -24735,83 +24736,36 @@ var Plasma = function (_Component) {
 	}, {
 		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps() {
-			// hashes for translating emotion to color values
-			var emotionColorsA = {
-				anger: '#ff0000', // red
-				surprise: '#ffcc00', // pink
-				sadness: '#3366ff', // blue
-				fear: '#333300', // dark olive gray
-				joy: '#FFFFFF' // white
-			};
-
-			var emotionColorsB = {
-				anger: '#FF6600', // orange    
-				surprise: '#ffcc66', // peach
-				sadness: '#003366', // dark blue
-				fear: '#666633', // olive green
-				joy: '#FFFFFF' // burnt orange
-			};
-
-			var emotionColorsC = {
-				anger: '#ff0000', // red    
-				surprise: '#FF6600', // pink
-				sadness: '#00cc00', // green
-				fear: '#330000', // dark green
-				joy: '#FFFFFF' // white
-			};
-
-			var emotionColorsD = {
-				anger: '#FF6600', // orange    
-				surprise: '#FF66FF', // pink
-				sadness: '#330000', // brown
-				fear: '#330000', // brown
-				joy: '#FFFFFF' // white
-
-
-				// movement depends on dominant personality
-			};var movement = {
-				extraversion: "trig",
-				conscientiousness: "coolness",
-				openness: "circleZ",
-				agreeableness: "pendulum"
-
-				// translate emotion to color and set color on state
-			};var emotion = this.props.currEmotion;
-
-			var nextColorA = emotionColorsA[emotion];
-			var nextColorB = emotionColorsB[emotion];
-			var nextColorC = emotionColorsC[emotion];
-			var nextColorD = emotionColorsD[emotion];
-			var prevColorA = this.state.colorA;
-			var prevColorB = this.state.colorB;
-			var prevColorC = this.state.colorC;
-			var prevColorD = this.state.colorD;
-
-			var colorA = prevColorA !== nextColorA ? nextColorA : prevColorA;
-			var colorB = prevColorB !== nextColorB ? nextColorB : prevColorB;
-			var colorC = prevColorC !== nextColorC ? nextColorC : prevColorC;
-			var colorD = prevColorD !== nextColorD ? nextColorD : prevColorD;
-
-			// translate emotional intensity to rotation rate and set rate on state
+			var emotion = this.props.currEmotion;
+			var personality = this.props.primaryPersonality;
 			var intensity = this.props.primaryIntensity || 0.5;
 
-			var prevRate = this.state.rate;
-			var nextRate = (1 - intensity) / 25000 + 0.0003;
+			// determine color palette based on emotion
+			var nextPalette = paletteHash[emotion];
+			var prevPalette = this.state.palette;
+			var palette = prevPalette !== nextPalette ? nextPalette : prevPalette;
 
-			var rate = prevRate !== nextRate ? nextRate : prevRate;
-
-			// compare current personality with incoming
-			var personality = this.props.primaryPersonality;
-
-			var nextPath = movement[personality];
+			// determine movement based on dominant personality
+			var nextPath = movementHash[personality];
 			var prevPath = this.state.path;
-
 			var path = prevPath !== nextPath ? nextPath : prevPath;
 
-			this.setState({ colorA: colorA, colorB: colorB, colorC: colorC, colorD: colorD, rate: rate, path: path });
+			// determine movement rate based on emotional intensity
+			var prevRate = this.state.rate;
+			var nextRate = (1 - intensity) / 25000 + 0.0003;
+			var rate = prevRate !== nextRate ? nextRate : prevRate;
 
-			(0, _plasma.updateKnotColor)(this.state.colorA, this.state.colorB);
-			(0, _plasma.updateLightColor)(this.state.colorC, this.state.colorD);
+			// update local state with new values
+			this.setState({
+				palette: palette,
+				rate: rate,
+				path: path
+			});
+
+			// render VR scene and animations with new values
+			var newPalette = this.state.palette;
+			(0, _plasma.updateKnotColor)(newPalette[0], newPalette[1]);
+			(0, _plasma.updateLightColor)(newPalette[2], newPalette[3]);
 			(0, _plasma.updatePath)(this.state.path);
 		}
 	}, {
@@ -24982,7 +24936,7 @@ var movementPath = "trig";
 var altitude = "normal";
 var animationId;
 
-//Set up orbital camera, mouse listener, and window resize listener. 
+// Set up orbital camera, mouse listener, and window resize listener. 
 function initScene() {
 	var camera = document.getElementById('bubbleCamera');
 	camera.setAttribute('fov', 60); //field of view
@@ -24996,7 +24950,7 @@ function initScene() {
 	document.addEventListener('mousemove', onDocumentMouseMove, false);
 }
 
-//Create a single bubble with a specified material, scale, and altitude
+// Create a single bubble with a specified material, scale, and altitude
 function createBubble(scaleNum, img, color) {
 	var sphere = document.createElement('a-sphere');
 	var x = Math.random() * 10;
@@ -25009,28 +24963,27 @@ function createBubble(scaleNum, img, color) {
 	var z = Math.random() * 10;
 	sphere.setAttribute('material', "src:" + img + "; roughness: 0.01; color: " + color);
 	sphere.setAttribute('position', { x: x, y: y, z: z });
-	var scale = Math.random() * 0.4 + scaleNum; //default scaleNum is 0.2
+	var scale = Math.random() * 0.4 + scaleNum; // default scaleNum is 0.2
 	sphere.setAttribute('scale', { x: scale, y: scale, z: scale });
 	spheres.push(sphere);
 	sphere.setAttribute('id', spheres.length);
 	document.querySelector('a-scene').appendChild(sphere);
 }
 
-//Create any number of bubbles with any material. 
+// Create any number of bubbles with any material. 
 function makeBubbles(numBubbles, img, color) {
 	for (var i = 0; i < numBubbles; i++) {
 		createBubble(currentScale, img, color);
 	}
-	console.log("making!");
 }
 
-//Add more bubbles to the scene
+// Add more bubbles to the scene
 function addBubbles(numBubbles, img, color) {
 	console.log("adding!");
 	makeBubbles(numBubbles, img, color);
 }
 
-//Make some bubbles increase or decrease in size, or change color
+// Make some bubbles increase or decrease in size, or change color
 function sizeOrColor(scaleNum, img, color, int) {
 	var n = spheres.length / int; //for example, every 3rd, or every 4th bubble
 	var i = 0;
@@ -25044,12 +24997,12 @@ function sizeOrColor(scaleNum, img, color, int) {
 	}
 }
 
-//Use to increase or decrease speed, and to stop the bubbles. 
+// Use to increase or decrease speed, and to stop the bubbles. 
 function updateSpeed(n) {
 	tickSpeed = n;
 }
 
-//Use to change the pattern of the bubbles: 
+// Use to change the pattern of the bubbles: 
 function updatePath(pathName) {
 	movementPath = pathName;
 }
@@ -25059,14 +25012,14 @@ function animate() {
 	render();
 }
 
-//When the person leaves Bubbles, stop animating.
+// When the person leaves Bubbles, stop animating.
 function stopAnimating() {
 	cancelAnimationFrame(animationId);
 }
 
 function render() {
 	var camera = document.getElementById('bubbleCamera');
-	var timer = tickSpeed * Date.now(); //Change the number for bubble speed
+	var timer = tickSpeed * Date.now(); // Change the number for bubble speed
 	var curr = camera.getAttribute("position") || { x: 1, y: 1 };
 	var addx = curr.x + (mouseX - curr.x) * .05;
 	var addy = curr.y + (-mouseY - curr.y) * .05;
@@ -25339,18 +25292,18 @@ function onWindowResize() {
 // This component controls sphere rendering and animations of Plasma.jsx. 
 // Adapted from: (1) https://github.com/mrdoob/three.js/blob/master/examples/webgl_effects_anaglyph.html (2) https://github.com/aframevr/aframe/blob/master/examples/showcase/dynamic-lights/index.html 
 
-var knots = [];
-var lightX = void 0;
-var lightY = void 0;
-var windowHalfX = window.innerWidth / 2;
-var windowHalfY = window.innerHeight / 2;
-var width = window.innerWidth || 2;
-var height = window.innerHeight || 2;
-var mouseX = 0;
-var mouseY = 0;
-var movementPath = 'trig';
-var tickSpeed = 0.0001;
-var animationId = void 0;
+var knots = [],
+    lightX = void 0,
+    lightY = void 0,
+    windowHalfX = window.innerWidth / 2,
+    windowHalfY = window.innerHeight / 2,
+    width = window.innerWidth || 2,
+    height = window.innerHeight || 2,
+    mouseX = 0,
+    mouseY = 0,
+    movementPath = 'trig',
+    tickSpeed = 0.0001,
+    animationId = void 0;
 
 var initScene = function initScene() {
   var camera = document.getElementById('camera');

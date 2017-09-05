@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AssetLoader from '../AssetLoader'
+import AssetLoader from '../AssetLoader';
 
-import { initScene, makeBubbles, animate, sizeOrColor, updateSpeed, updatePath, stopAnimating } from './sceneUtils/bubbles.js'
+import { initScene, makeBubbles, animate, sizeOrColor, updateSpeed, updatePath, stopAnimating } from './sceneUtils/bubbles.js';
 
 export default class Bubbles extends Component {
 
@@ -96,22 +96,9 @@ export default class Bubbles extends Component {
           <a-scene vr-mode-ui="enabled: true">
               <AssetLoader />
               <a-entity id="bubbleCamera" camera="userHeight: 1.6" look-controls
-               mouse-cursor="">
-              </a-entity>
+               mouse-cursor="" />
               <a-sky id="sky" src="#blossoms" />
           </a-scene>
         )
     }
 }
-//Emotions: Change bubble color
-  //Anger:              Bubbles turn red + increase speed
-  //Joy:                Bubbles turn yellow  
-  //Sadness:            Bubbles turn blue + decrease in #
-  //Fear:               Bubbles turn gray + stand still
-  //Surprise:           Bubbles turn orange and increase in #
-
-//Personality: 
-  //Extraversion:       Bubbles increase in size and do a "trig"
-  //Conscientiousness:  Bubbles do a "coolness" pattern
-  //Openness:           Bubbles do a circleZ pattern
-  //Agreeableness:      Bubbles do a "pendulum" pattern 

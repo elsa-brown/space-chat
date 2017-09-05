@@ -14,7 +14,7 @@ var movementPath = "trig";
 var altitude = "normal"
 var animationId; 
 
-//Set up orbital camera, mouse listener, and window resize listener. 
+// Set up orbital camera, mouse listener, and window resize listener. 
 function initScene() {
 	var camera = document.getElementById('bubbleCamera')
 	camera.setAttribute('fov', 60) //field of view
@@ -28,7 +28,7 @@ function initScene() {
 	document.addEventListener('mousemove', onDocumentMouseMove, false)
 }
 
-//Create a single bubble with a specified material, scale, and altitude
+// Create a single bubble with a specified material, scale, and altitude
 function createBubble(scaleNum, img, color) {
 	var sphere = document.createElement('a-sphere')
 	let x = Math.random() * 10;
@@ -41,28 +41,27 @@ function createBubble(scaleNum, img, color) {
 	let z = Math.random() * 10;
 	sphere.setAttribute('material', `src:${img}; roughness: 0.01; color: ${color}`)
 	sphere.setAttribute('position', { x: x, y: y, z: z })
-	let scale = Math.random() * 0.4 + scaleNum   //default scaleNum is 0.2
+	let scale = Math.random() * 0.4 + scaleNum   // default scaleNum is 0.2
 	sphere.setAttribute('scale', { x: scale, y: scale, z: scale })
 	spheres.push(sphere);
 	sphere.setAttribute('id', spheres.length)
 	document.querySelector('a-scene').appendChild(sphere);
 }
 
-//Create any number of bubbles with any material. 
+// Create any number of bubbles with any material. 
 function makeBubbles(numBubbles, img, color) {
 	for (var i = 0; i < numBubbles; i++) {
 		createBubble(currentScale, img, color)
 	}
-	console.log("making!")
 }
 
-//Add more bubbles to the scene
+// Add more bubbles to the scene
 function addBubbles(numBubbles, img, color) {
 	console.log("adding!")
 	makeBubbles(numBubbles, img, color)
 }
 
-//Make some bubbles increase or decrease in size, or change color
+// Make some bubbles increase or decrease in size, or change color
 function sizeOrColor(scaleNum, img, color, int) {
 	var n = spheres.length / int  //for example, every 3rd, or every 4th bubble
 	var i = 0;
@@ -76,12 +75,12 @@ function sizeOrColor(scaleNum, img, color, int) {
 	}
 }
 
-//Use to increase or decrease speed, and to stop the bubbles. 
+// Use to increase or decrease speed, and to stop the bubbles. 
 function updateSpeed(n) {
 	tickSpeed = n
 }
 
-//Use to change the pattern of the bubbles: 
+// Use to change the pattern of the bubbles: 
 function updatePath(pathName) {
 	movementPath = pathName
 }
@@ -91,14 +90,14 @@ function animate() {
 	render();
 }
 
-//When the person leaves Bubbles, stop animating.
+// When the person leaves Bubbles, stop animating.
 function stopAnimating() {
 	cancelAnimationFrame(animationId)
 }
 
 function render() {
 	var camera = document.getElementById('bubbleCamera')
-	var timer = tickSpeed * Date.now(); //Change the number for bubble speed
+	var timer = tickSpeed * Date.now(); // Change the number for bubble speed
 	let curr = camera.getAttribute("position") || { x: 1, y: 1 }
 	let addx = curr.x + ((mouseX - curr.x) * .05)
 	let addy = curr.y + ((- mouseY - curr.y) * .05)

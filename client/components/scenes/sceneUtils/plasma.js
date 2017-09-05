@@ -2,17 +2,18 @@
 // Adapted from: (1) https://github.com/mrdoob/three.js/blob/master/examples/webgl_effects_anaglyph.html (2) https://github.com/aframevr/aframe/blob/master/examples/showcase/dynamic-lights/index.html 
 
 let knots = []
-let lightX
-let lightY 
-let windowHalfX = window.innerWidth / 2;
-let windowHalfY = window.innerHeight / 2;
-let width = window.innerWidth || 2;
-let height = window.innerHeight || 2;
-let mouseX = 0;
-let mouseY = 0;
-let movementPath = 'trig' 
-let tickSpeed = 0.0001
-let animationId 
+  , lightX
+  , lightY
+  , windowHalfX = window.innerWidth / 2
+  , windowHalfY = window.innerHeight / 2
+  , width = window.innerWidth || 2
+  , height = window.innerHeight || 2
+  , mouseX = 0
+  , mouseY = 0
+  , movementPath = 'trig'
+  , tickSpeed = 0.0001
+  , animationId
+;
 
 const initScene = () => {
   let camera = document.getElementById('camera')
