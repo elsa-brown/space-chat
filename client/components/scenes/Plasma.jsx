@@ -23,7 +23,7 @@ const paletteHash = {
 	sadness: ['#3366FF', '#003366', '#00CC00', '#330000'], 	// blue, dark blue, green, brown
 	fear: ['#333300', '#666633', '#330000', '#330000'], 		// dark ray, olive green, brown, brown
 	joy: ['#FFFA00', '#FFFFFF', '#FFFF00', '#FFFFFF'] 			// yellow, white, gold, white
-}
+};
 
 // maps personality traits to movement paths
 const movementHash = {
@@ -31,7 +31,7 @@ const movementHash = {
   conscientiousness: 'coolness',
   openness: 'circleZ',
   agreeableness: 'pendulum'
-}
+};
 
 export default class Plasma extends Component {
 
@@ -46,19 +46,19 @@ export default class Plasma extends Component {
 	}
 
 	componentDidMount() {
-		initScene()
-		makeKnots(this.state.numKnots)
-		setAmbientLightA(this.state.palette[0])
-		setAmbientLightB(this.state.palette[1])
-		makeRotatingLightX()
-		makeRotatingLightY()
-		animate()
+		initScene();
+		makeKnots(this.state.numKnots);
+		setAmbientLightA(this.state.palette[0]);
+		setAmbientLightB(this.state.palette[1]);
+		makeRotatingLightX();
+		makeRotatingLightY();
+		animate();
 	}
 
 	componentWillReceiveProps() {
-		const emotion = this.props.currEmotion
-		const personality = this.props.primaryPersonality
-		const intensity = this.props.primaryIntensity || 0.5
+		const emotion = this.props.currEmotion;
+		const personality = this.props.primaryPersonality;
+		const intensity = this.props.primaryIntensity || 0.5;
 
 		// determine color palette based on emotion
 		let nextPalette = paletteHash[emotion];
@@ -66,31 +66,31 @@ export default class Plasma extends Component {
 		let palette = prevPalette !== nextPalette ? nextPalette : prevPalette;
 
 		// determine movement based on dominant personality
-		let nextPath = movementHash[personality]
-		let prevPath = this.state.path
-		let path = prevPath !== nextPath ? nextPath : prevPath
+		let nextPath = movementHash[personality];
+		let prevPath = this.state.path;
+		let path = prevPath !== nextPath ? nextPath : prevPath;
 
 		// determine movement rate based on emotional intensity
-		let prevRate = this.state.rate
-		let nextRate = (1 - intensity) / 25000 + 0.0003
-		let rate = prevRate !== nextRate ? nextRate : prevRate
+		let prevRate = this.state.rate;
+		let nextRate = (1 - intensity) / 25000 + 0.0003;
+		let rate = prevRate !== nextRate ? nextRate : prevRate;
 
 		// update local state with new values
 		this.setState({
 			palette: palette,
 			rate: rate,
 			path: path
-		})
+		});
 
 		// render VR scene and animations with new values
-		let newPalette = this.state.palette
-		updateKnotColor(newPalette[0], newPalette[1])
-		updateLightColor(newPalette[2], newPalette[3])
-		updatePath(this.state.path)
+		let newPalette = this.state.palette;
+		updateKnotColor(newPalette[0], newPalette[1]);
+		updateLightColor(newPalette[2], newPalette[3]);
+		updatePath(this.state.path);
   }
 
 	componentWillUnmount() {
-    stopAnimating()
+    stopAnimating();
   }
 
 	render() {
@@ -120,3 +120,4 @@ export default class Plasma extends Component {
 	  )
 	}
 }
+

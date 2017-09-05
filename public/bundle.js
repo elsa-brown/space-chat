@@ -24695,10 +24695,10 @@ var paletteHash = {
 	sadness: ['#3366FF', '#003366', '#00CC00', '#330000'], // blue, dark blue, green, brown
 	fear: ['#333300', '#666633', '#330000', '#330000'], // dark ray, olive green, brown, brown
 	joy: ['#FFFA00', '#FFFFFF', '#FFFF00', '#FFFFFF'] // yellow, white, gold, white
+};
 
-
-	// maps personality traits to movement paths
-};var movementHash = {
+// maps personality traits to movement paths
+var movementHash = {
 	extraversion: 'trig',
 	conscientiousness: 'coolness',
 	openness: 'circleZ',
