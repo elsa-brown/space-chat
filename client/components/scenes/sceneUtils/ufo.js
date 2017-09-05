@@ -1,18 +1,16 @@
-// This component controls sphere rendering and animations of Cubes.jsx. 
-// Much of this code is based on Three.js' example here:  https://github.com/mrdoob/three.js/blob/master/examples/webgl_effects_anaglyph.html
-
 let cubes = []
-let windowHalfX = window.innerWidth / 2
-let windowHalfY = window.innerHeight / 2
-let width = window.innerWidth || 2
-let height = window.innerHeight || 2
-let mouseX = 0
-let mouseY = 0
-let currentScale = 0.2
-let tickSpeed = 0.00005
-let animationId
+	, windowHalfX = window.innerWidth / 2
+	, windowHalfY = window.innerHeight / 2
+	, width = window.innerWidth || 2
+	, height = window.innerHeight || 2
+	, mouseX = 0
+	, mouseY = 0
+	, currentScale = 0.2
+	, tickSpeed = 0.00005
+	, animationId
+;
 
-//Set up orbital camera, mouse listener, and window resize listener. 
+// Set up orbital camera, mouse listener, and window resize listener. 
 function initScene() {
 	var camera = document.getElementById('camera')
 	camera.setAttribute('fov', 45) //field of view
@@ -66,7 +64,6 @@ const makeCubes = (numCubes, images) => {
 
 // make ambient light
 const makeLight = () => {
-
 	let light = document.createElement('a-light')
 
 	light.setAttribute('type', 'ambient')
@@ -77,21 +74,15 @@ const makeLight = () => {
 	light.setAttribute('id', 'light')
 
 	document.querySelector('a-scene').appendChild(light)
-
 }
 
-// Update ambient light color based on emotion
-const updateColor = (color) => {
-
+// update ambient light intensity
+const updateLighting = (intensity) => {
 	let light = document.getElementById('light')
-
-	//light.setAttribute('color', `${color[0]}`)
-	light.setAttribute('intensity', `${color[1]}`)
-
+	light.setAttribute('intensity', intensity)
 }
 
-
-// updated speed based on intensity
+// update cube rotation speed 
 const updateSpeed = (n) => {
 	tickSpeed = n
 }
@@ -99,8 +90,8 @@ const updateSpeed = (n) => {
 const render = () => {
 	let timer = tickSpeed * Date.now() //change number for cube 
 
-  for (var i = 0, il = cubes.length; i < il; i++) {
-    var cube = cubes[i];
+  for (let i = 0, il = cubes.length; i < il; i++) {
+    let cube = cubes[i];
     cube.setAttribute('rotation', { x: 4 * (timer + i) })
     cube.setAttribute('rotation', { y: 4 * (timer + i * 5) })
   }
@@ -128,5 +119,5 @@ const onDocumentMouseMove = (event) => {
 	mouseY = (event.clientY - windowHalfY) / 100;
 }
 
-module.exports = { initScene, makeCubes, makeLight, animate, updateColor, updateSpeed, stopAnimating}
+module.exports = { initScene, makeCubes, makeLight, animate, updateLighting, updateSpeed, stopAnimating}
 

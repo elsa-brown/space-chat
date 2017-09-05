@@ -24714,7 +24714,7 @@ var Plasma = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Plasma.__proto__ || Object.getPrototypeOf(Plasma)).call(this, props));
 
 		_this.state = {
-			numKnots: 60,
+			numKnots: 80,
 			palette: ['#FFFA00', '#FFFFFF', '#FFFF00', '#FFFFFF'],
 			rate: 0.00005,
 			path: 'trig'
@@ -24762,8 +24762,9 @@ var Plasma = function (_Component) {
 				path: path
 			});
 
-			// render VR scene and animations with new values
+			// render VR scene with new values
 			var newPalette = this.state.palette;
+
 			(0, _plasma.updateKnotColor)(newPalette[0], newPalette[1]);
 			(0, _plasma.updateLightColor)(newPalette[2], newPalette[3]);
 			(0, _plasma.updatePath)(this.state.path);
@@ -24835,19 +24836,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// maps emotion to lighting intensity value
+var lightingHash = {
+  anger: 3,
+  surprise: 4,
+  sadness: 0.5,
+  fear: 2,
+  joy: 1
+};
+
 var UFO = function (_Component) {
   _inherits(UFO, _Component);
 
   function UFO(props) {
     _classCallCheck(this, UFO);
 
-    var _this = _possibleConstructorReturn(this, (UFO.__proto__ || Object.getPrototypeOf(UFO)).call(this));
+    var _this = _possibleConstructorReturn(this, (UFO.__proto__ || Object.getPrototypeOf(UFO)).call(this, props));
 
     _this.state = {
       numCubes: 180,
       cubeImages: ['#deer', '#gh', '#roses', '#rainbow', '#blossoms'],
-      color: ['#FFFFFF', 1], // will update based on primary emotion
-      speed: 1 // will update based on sentiment analysis
+      lighting: 1,
+      speed: 1
     };
     return _this;
   }
@@ -24855,6 +24865,7 @@ var UFO = function (_Component) {
   _createClass(UFO, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      // render VR scene and begin animating
       (0, _ufo.initScene)();
       (0, _ufo.makeLight)();
       (0, _ufo.makeCubes)(this.state.numCubes, this.state.cubeImages);
@@ -24863,31 +24874,25 @@ var UFO = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
-
-      var emotionColors = {
-        anger: ['#FF3333', 3],
-        surprise: ['#ffffcc', 4],
-        sadness: ['#0066ff', 0.5],
-        fear: ['#99CC00', 2],
-        joy: ['#FFFFFF', 1]
-
-        //compare current colors/emotion
-      };var currentColor = this.state.color;
-      var currentSpeed = this.state.speed;
-
       var emotion = this.props.currEmotion;
       var sentiment = this.props.sentimentScore;
 
-      var nextSpeed = (1 - sentiment) / 20;
+      // determine lighting scheme based on emotion
+      var nextLightingScheme = lightingHash[emotion],
+          prevLightingScheme = this.state.lighting;
+      var lighting = prevLightingScheme !== nextLightingScheme ? nextLightingScheme : prevLightingScheme;
 
-      var color = currentColor !== emotionColors[emotion] ? emotionColors[emotion] : currentColor;
+      // determine cube rotation speed based on sentiment (low = slow, high = fast)
+      var nextSpeed = (1 - sentiment) / 20,
+          prevSpeed = this.state.speed;
+      var speed = prevSpeed !== nextSpeed ? nextSpeed : prevSpeed;
 
-      var speed = currentSpeed !== nextSpeed ? nextSpeed : currentSpeed;
-      console.log('speed is', speed);
+      // update local state with new values
+      this.setState({ lighting: lighting, speed: speed });
 
-      this.setState({ color: color, speed: speed });
-
-      (0, _ufo.updateColor)(this.state.color, this.state.intensity);
+      // render VR scene with new values
+      var lightIntensity = this.state.lighting;
+      (0, _ufo.updateLighting)(lightIntensity);
       (0, _ufo.updateSpeed)(this.state.speed);
     }
   }, {
@@ -24903,7 +24908,8 @@ var UFO = function (_Component) {
         { 'vr-mode-ui': 'enabled: true', fog: 'type: exponential; color: yellow; density: 0.00015' },
         _react2.default.createElement(_AssetLoader2.default, null),
         _react2.default.createElement('a-entity', { id: 'camera', camera: 'userHeight: 1.6', 'look-controls': true, 'mouse-cursor': '' }),
-        _react2.default.createElement('a-sky', { id: '#sky', src: '#fractal' })
+        _react2.default.createElement('a-sky', { id: '#sky', src: '#fractal' }),
+        '}'
       );
     }
   }]);
@@ -25504,21 +25510,18 @@ module.exports = { initScene: initScene, animate: animate, makeKnots: makeKnots,
 "use strict";
 
 
-// This component controls sphere rendering and animations of Cubes.jsx. 
-// Much of this code is based on Three.js' example here:  https://github.com/mrdoob/three.js/blob/master/examples/webgl_effects_anaglyph.html
+var cubes = [],
+    windowHalfX = window.innerWidth / 2,
+    windowHalfY = window.innerHeight / 2,
+    width = window.innerWidth || 2,
+    height = window.innerHeight || 2,
+    mouseX = 0,
+    mouseY = 0,
+    currentScale = 0.2,
+    tickSpeed = 0.00005,
+    animationId = void 0;
 
-var cubes = [];
-var windowHalfX = window.innerWidth / 2;
-var windowHalfY = window.innerHeight / 2;
-var width = window.innerWidth || 2;
-var height = window.innerHeight || 2;
-var mouseX = 0;
-var mouseY = 0;
-var currentScale = 0.2;
-var tickSpeed = 0.00005;
-var animationId = void 0;
-
-//Set up orbital camera, mouse listener, and window resize listener. 
+// Set up orbital camera, mouse listener, and window resize listener. 
 function initScene() {
 	var camera = document.getElementById('camera');
 	camera.setAttribute('fov', 45); //field of view
@@ -25572,7 +25575,6 @@ var makeCubes = function makeCubes(numCubes, images) {
 
 // make ambient light
 var makeLight = function makeLight() {
-
 	var light = document.createElement('a-light');
 
 	light.setAttribute('type', 'ambient');
@@ -25585,16 +25587,13 @@ var makeLight = function makeLight() {
 	document.querySelector('a-scene').appendChild(light);
 };
 
-// Update ambient light color based on emotion
-var updateColor = function updateColor(color) {
-
+// update ambient light intensity
+var updateLighting = function updateLighting(intensity) {
 	var light = document.getElementById('light');
-
-	//light.setAttribute('color', `${color[0]}`)
-	light.setAttribute('intensity', '' + color[1]);
+	light.setAttribute('intensity', intensity);
 };
 
-// updated speed based on intensity
+// update cube rotation speed 
 var updateSpeed = function updateSpeed(n) {
 	tickSpeed = n;
 };
@@ -25631,7 +25630,7 @@ var onDocumentMouseMove = function onDocumentMouseMove(event) {
 	mouseY = (event.clientY - windowHalfY) / 100;
 };
 
-module.exports = { initScene: initScene, makeCubes: makeCubes, makeLight: makeLight, animate: animate, updateColor: updateColor, updateSpeed: updateSpeed, stopAnimating: stopAnimating };
+module.exports = { initScene: initScene, makeCubes: makeCubes, makeLight: makeLight, animate: animate, updateLighting: updateLighting, updateSpeed: updateSpeed, stopAnimating: stopAnimating };
 
 /***/ }),
 /* 185 */

@@ -1,62 +1,69 @@
 import React, {Component} from 'react'
 import AssetLoader from '../AssetLoader'
 
-import { initScene, makeCubes, makeLight, animate, updateColor, updateSpeed, stopAnimating } from './sceneUtils/ufo.js'
+import { initScene
+        , makeCubes
+        , makeLight
+        , animate
+        , updateLighting
+        , updateSpeed
+        , stopAnimating
+      } from './sceneUtils/ufo.js'
 
+// maps emotion to lighting intensity value
+const lightingHash = {
+  anger: 3,
+  surprise: 4,
+  sadness: 0.5,
+  fear: 2,
+  joy: 1,
+}
 
 export default class UFO extends Component {
-
   constructor(props) {
-    super()
-
+    super(props)
     this.state = {
       numCubes: 180,
       cubeImages: ['#deer', '#gh', '#roses', '#rainbow', '#blossoms'],
-      color: ['#FFFFFF', 1], // will update based on primary emotion
-      speed: 1, // will update based on sentiment analysis
+      lighting: 1,
+      speed: 1
     }
   }
 
   componentDidMount() {
-    initScene()
-    makeLight()
-    makeCubes(this.state.numCubes, this.state.cubeImages)
-    animate()
+    // render VR scene and begin animating
+    initScene();
+    makeLight();
+    makeCubes(this.state.numCubes, this.state.cubeImages);
+    animate();
   }
 
   componentWillReceiveProps() {
+    const emotion = this.props.currEmotion;
+    const sentiment = this.props.sentimentScore;
 
-    let emotionColors = {
-      anger: ['#FF3333', 3],
-      surprise: ['#ffffcc', 4],
-      sadness: ['#0066ff', 0.5],
-      fear: ['#99CC00', 2],
-      joy: ['#FFFFFF', 1],
-    }
+    // determine lighting scheme based on emotion
+    let nextLightingScheme = lightingHash[emotion]
+      , prevLightingScheme = this.state.lighting;
+    let lighting = prevLightingScheme !== nextLightingScheme ? nextLightingScheme : prevLightingScheme;
 
-    //compare current colors/emotion
-    let currentColor = this.state.color
-    let currentSpeed = this.state.speed
+    // determine cube rotation speed based on sentiment (low = slow, high = fast)
+    let nextSpeed = (1 - sentiment) / 20
+      , prevSpeed = this.state.speed;
+    let speed = prevSpeed !== nextSpeed ? nextSpeed : prevSpeed;
 
-    let emotion = this.props.currEmotion
-    let sentiment = this.props.sentimentScore
-    
-    let nextSpeed = (1 - sentiment) / 20 
+    // update local state with new values
+    this.setState({ lighting: lighting, speed: speed });
 
-    let color = currentColor !== emotionColors[emotion] ? emotionColors[emotion] : currentColor
-
-    let speed = currentSpeed !== nextSpeed ? nextSpeed : currentSpeed
-    console.log('speed is', speed)
-
-    this.setState({ color: color, speed: speed })
-
-    updateColor(this.state.color, this.state.intensity)
+    // render VR scene with new values
+    let lightIntensity = this.state.lighting;
+    updateLighting(lightIntensity)
     updateSpeed(this.state.speed)
 
   }
 
   componentWillUnmount() {
-    stopAnimating()
+    stopAnimating();
   }
 
   render() {
@@ -65,10 +72,12 @@ export default class UFO extends Component {
         <AssetLoader />
 
         {/* Camera */}
-        <a-entity id="camera" camera="userHeight: 1.6" look-controls mouse-cursor="">
-      </a-entity>
+        <a-entity id="camera" camera="userHeight: 1.6"look-controls mouse-cursor="">
+        </a-entity>
 
+        {/* Skysphere */}
         <a-sky id="#sky" src="#fractal" />
+        }
       </a-scene>
     )
   }

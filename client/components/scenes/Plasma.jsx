@@ -38,7 +38,7 @@ export default class Plasma extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			numKnots: 60,
+			numKnots: 80,
 			palette: ['#FFFA00', '#FFFFFF', '#FFFF00', '#FFFFFF'], 
 			rate: 0.00005,
 			path: 'trig'
@@ -82,8 +82,9 @@ export default class Plasma extends Component {
 			path: path
 		});
 
-		// render VR scene and animations with new values
+		// render VR scene with new values
 		let newPalette = this.state.palette;
+
 		updateKnotColor(newPalette[0], newPalette[1]);
 		updateLightColor(newPalette[2], newPalette[3]);
 		updatePath(this.state.path);
