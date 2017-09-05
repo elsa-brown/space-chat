@@ -16,8 +16,6 @@ When Room loads, it:
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-// higher order component that allows Room to transcribe speech
-// import SpeechRecognition from 'react-speech-recognition'
 // import PropTypes from 'prop-types'
 
 import Bubbles from './scenes/Bubbles.jsx'
@@ -26,9 +24,9 @@ import Cosmos from './scenes/Cosmos.jsx'
 import UFO from './scenes/UFO.jsx'
 import { openSocket, closeSocket, updateRoster
        , joinChannel, sendMessage
-       , receiveMessage, receiveSentiment } from '../sockets.js'
+       , receiveMessage, receiveSentiment } from '../sockets'
 
-
+// props from SpeechRecognition: transcript, resetTranscript, browserSupportsSpeechRecognition
 // const propTypes = {
 //   // props injected by SpeechRecognition
 //   transcript: PropTypes.string,
@@ -36,12 +34,26 @@ import { openSocket, closeSocket, updateRoster
 //   browserSupportsSpeechRecognition: PropTypes.bool
 // }
 
+const langDict = {
+  en: 'en-US',
+  es: 'es-ES',
+  zh: 'zh-CN',
+  ar: 'ar-SA',
+  de: 'de-DE',
+  fr: 'fr-FR',
+  it: 'it-IT',
+  pt: 'pt-PT',
+  nl: 'nl-NL',
+  ja: 'ja-JP',
+  ko: 'ko-KR',
+  ru: 'ru-RU'
+}
+
 class SceneContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      language: '',
-      langDict: {}
+      language: ''
     }
   }
 
@@ -50,21 +62,7 @@ class SceneContainer extends Component {
     openSocket(this.props.scene)
 
     this.setState({
-      language: this.props.language,
-      langDict: {
-        en: 'en-US',
-        es: 'es-ES',
-        zh: 'zh-CN',
-        ar: 'ar-SA',
-        de: 'de-DE',
-        fr: 'fr-FR',
-        it: 'it-IT',
-        pt: 'pt-PT',
-        nl: 'nl-NL',
-        ja: 'ja-JP',
-        ko: 'ko-KR',
-        ru: 'ru-RU'
-      }
+      language: this.props.language
     })
 
     if (!this.props.browserSupportsSpeechRecognition) return null
@@ -89,7 +87,7 @@ class SceneContainer extends Component {
   // NB: web speech API waits to finalize text until after a short pause
   componentWillReceiveProps({ transcript, finalTranscript, resetTranscript, recognition }) {
     // set language for speech recognition input
-    recognition.lang = this.state.langDict[this.state.language]
+    recognition.lang = langDict[this.state.language]
     // when transcript finalized/ regular transcript and final transcript are the same
     if (transcript === finalTranscript && finalTranscript) {
       // emit 'message' with finalTranscript as payload
