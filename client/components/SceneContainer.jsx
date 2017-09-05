@@ -18,10 +18,10 @@ When SceneContainer loads, it:
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Bubbles from './scenes/Bubbles.jsx'
-import Plasma from './scenes/Plasma.jsx'
-import Cosmos from './scenes/Cosmos.jsx'
-import UFO from './scenes/UFO.jsx'
+import Bubbles from './scenes/Bubbles'
+import Plasma from './scenes/Plasma'
+import Cosmos from './scenes/Cosmos'
+import UFO from './scenes/UFO'
 import { openSocket, closeSocket, updateRoster
        , joinChannel, sendMessage
        , receiveMessage, receiveSentiment } from '../sockets'

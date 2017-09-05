@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AssetLoader from '../AssetLoader'
-import { initScene, initSky, initLight, initStarField, initPlanets, rotatePlanets, initPlanetCircle, updateSkyColor, updateLightColor } from './cosmos'
+import { initScene, initSky, initLight, initStarField, initPlanets, rotatePlanets, initPlanetCircle, updateSkyColor, updateLightColor } from './sceneUtils/cosmos'
 
 // Option 1: scattered, rotating planets of various sizes
 // Option 2: ring of planets, each with its own orbit of small spheres

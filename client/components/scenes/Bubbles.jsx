@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AssetLoader from '../AssetLoader'
 
-import { initScene, makeBubbles, animate, sizeOrColor, updateSpeed, updatePath, stopAnimating } from './bubbles.js'
+import { initScene, makeBubbles, animate, sizeOrColor, updateSpeed, updatePath, stopAnimating } from './sceneUtils/bubbles.js'
 
 export default class Bubbles extends Component {
 

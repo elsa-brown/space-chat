@@ -6,7 +6,7 @@ import { vecToStr } from '../utils'
 import { initScene, makeKnots, animate, stopAnimating
 	   , setAmbientLightA, setAmbientLightB
 	   , makeRotatingLightX, makeRotatingLightY
-	   , updateKnotColor, updateLightColor, updateSpeed, updatePath } from './plasma.js'
+	   , updateKnotColor, updateLightColor, updateSpeed, updatePath } from './sceneUtils/plasma.js'
 
 // const Avatar = (props) => {
 // 	return (

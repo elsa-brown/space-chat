@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import AssetLoader from '../AssetLoader'
 
-import { initScene, makeCubes, makeLight, animate, updateColor, updateSpeed, stopAnimating } from './ufo.js'
+import { initScene, makeCubes, makeLight, animate, updateColor, updateSpeed, stopAnimating } from './sceneUtils/ufo.js'
 
 
 export default class UFO extends Component {
