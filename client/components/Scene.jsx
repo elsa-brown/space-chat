@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Bubbles from './scenes/Bubbles';
-import Plasma from './scenes/Plasma';
-import Cosmos from './scenes/Cosmos';
-import UFO from './scenes/UFO';
+import Bubbles from './scenes/Bubbles.jsx';
+import Plasma from './scenes/Plasma.jsx';
+import Cosmos from './scenes/Cosmos.jsx';
+import UFO from './scenes/UFO.jsx';
 
 const Scene = (props) => {
 	console.log('in Scene ', props)
 
-	let sentiment = props.sentiment;
 	let scene = props.scene;
+	let sentiment = props.sentiment;
 
 	// emotion data
   let currEmotion = sentiment.primaryEmotion[0] || 'joy' 

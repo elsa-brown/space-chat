@@ -27,7 +27,7 @@ class FormContainer extends Component {
     evt.preventDefault()
     let scene = evt.target.name
     console.log('scene is ', scene)
-    this.props.setLanguage(this.state.language || 'en')
+    this.props.setLanguage(this.state.language || 'en-US')
     this.props.setScene(scene)
   }
 
