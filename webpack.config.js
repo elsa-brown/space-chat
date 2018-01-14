@@ -1,6 +1,6 @@
 'use strict';
 
-const webpack = require('webpack');
+var webpack = require('webpack');
 
 module.exports = {
   entry: './client/main.jsx',

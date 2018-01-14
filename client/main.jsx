@@ -7,13 +7,9 @@ import {Router, Route, browserHistory} from 'react-router';
 
 import store from './store';
 
-import SpeechRecognition from 'react-speech-recognition';
-
 import Home from './components/Home';
-import SceneContainer from './components/SceneContainer';
+import EnhancedSceneContainer from './components/SceneContainer';
 import NotFound from './components/NotFound';
-
-const EnhancedSceneContainer = SpeechRecognition(SceneContainer);
 
 render(
   <Provider store={store} >

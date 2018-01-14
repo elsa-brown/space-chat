@@ -17,6 +17,7 @@ When SceneContainer loads, it:
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import SpeechRecognition from 'react-speech-recognition';
 
 import Bubbles from './scenes/Bubbles'
 import Plasma from './scenes/Plasma'
@@ -108,5 +109,5 @@ class SceneContainer extends Component {
 
 const mapState = ({language, sentiment, scene, roster}) => ({language, sentiment, scene, roster})
 
-export default connect(mapState, null)(SceneContainer);
+export default SpeechRecognition(connect(mapState, null)(SceneContainer));
 
