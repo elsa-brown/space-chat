@@ -17,7 +17,9 @@ When SceneContainer loads, it:
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
 import SpeechRecognition from 'react-speech-recognition';
+import PropTypes from 'prop-types';
 
 import Bubbles from './scenes/Bubbles'
 import Plasma from './scenes/Plasma'
@@ -26,6 +28,12 @@ import UFO from './scenes/UFO'
 import { openSocket, closeSocket, updateRoster
        , joinChannel, sendMessage
        , receiveMessage, receiveSentiment } from '../sockets'
+
+const propTypes = {
+  transcript: PropTypes.string,
+  resetTranscript: PropTypes.func,
+  browserSupportsSpeechRecognition: PropTypes.bool
+}
 
 class SceneContainer extends Component {
 
@@ -107,7 +115,10 @@ class SceneContainer extends Component {
   }
 }
 
+SceneContainer.propTypes = propTypes;
+const EnhancedSceneContainer = SpeechRecognition(SceneContainer);
+
 const mapState = ({language, sentiment, scene, roster}) => ({language, sentiment, scene, roster})
 
-export default SpeechRecognition(connect(mapState, null)(SceneContainer));
+export default connect(mapState, null)(EnhancedSceneContainer);
 
