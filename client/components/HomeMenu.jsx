@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setLanguage } from '../../reducers/languageReducer';
-import { setScene } from '../../reducers/sceneReducer';
+import { setLanguage } from '../reducers/languageReducer';
+import { setScene } from '../reducers/sceneReducer';
 
-import LanguageMenu from './LanguageMenu';
-import SceneButtons from './SceneButtons.jsx';
+import HomeMenuLanguage from './HomeMenuLanguage';
+import HomeMenuScene from './HomeMenuScene';
 
-class FormContainer extends Component {
+class HomeMenu extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -35,12 +35,12 @@ class FormContainer extends Component {
 		console.log('this.state.language ', this.state.language)
 		return (
 			<div>
-        <LanguageMenu selectLanguage={this.selectLanguage} />
-        <SceneButtons handleClick={this.handleClick} />
+        <HomeMenuLanguage selectLanguage={this.selectLanguage} />
+        <HomeMenuScene handleClick={this.handleClick} />
       </div>
 		)
 	}
 }
 
-export default connect(null, { setLanguage, setScene })(FormContainer);
+export default connect(null, { setLanguage, setScene })(HomeMenu);
 

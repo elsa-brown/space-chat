@@ -1,29 +1,37 @@
 import React from 'react';
 
-import Intro from './homepage/Intro';
-import FormContainer from './forms/FormContainer';
-import Chevron from './homepage/Chevron';
-import Instructions from './homepage/Instructions';
-import Compatibility from './homepage/Compatibility';
-import About from './homepage/About';
+import HomeMenu from './HomeMenu';
+import HomeInstructions from './HomeInstructions';
+import HomeCompatibility from './HomeCompatibility';
+import HomeAbout from './HomeAbout';
 
 const Home = () => {
   return (
     <div className="home-container">
       <div id="intro">
-        <Intro />
+        <h1> You are about to enter a virtual experience in<br />
+        which users from across the world will<br />
+        understand your language.<br /><br />
+        And where space will understand how you feel.
+        </h1>
       </div>
-      <div id="form-container">
-        <FormContainer />
+      <div id="menu">
+        <HomeMenu />
       </div>
-      <Chevron />
-      <Instructions />
+      <div
+        className="glyphicon glyphicon-chevron-down"
+        aria-hidden="true"
+      />
+      <HomeInstructions />
       <div id="compatibility">
-        <Compatibility />
+        <HomeCompatibility />
       </div>
-      <Chevron />
+      <div
+        className="glyphicon glyphicon-chevron-down"
+        aria-hidden="true"
+      />
       <div id="about">
-        <About />
+        <HomeAbout />
       </div>
     </div>
   )

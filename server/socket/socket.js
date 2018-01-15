@@ -1,5 +1,5 @@
 // vendor APIs for translation and sentiment analysis of messages
-const { translate, indico } = require('../../vendor');
+const { translate, indico } = require('../vendor');
 
 // the languages array behaves like 'state' for our server
 let languages = [];

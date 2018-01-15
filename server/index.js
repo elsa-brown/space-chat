@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const server = require('http').Server(app);
+const socketServer = require('http').Server(app);
 const socketio = require('socket.io');
-const io = socketio(server);
-const socketLogic = require('./socket');
+const io = socketio(socketServer);
+const socket = require('./socket');
 
 const PORT = process.env.PORT || 3002;
 const path = require('path');
@@ -26,9 +26,9 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err.message || 'Internal server error.')
 })
 
-socketLogic(io)
+socket(io)
 
-server.listen(PORT, () => {
+socketServer.listen(PORT, () => {
   console.log('listening on 3002 hey girrrlll')
 })
 
