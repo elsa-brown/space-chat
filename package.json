@@ -9,6 +9,10 @@
     "start": "node server/index.js",
     "test": "jest"
   },
+  "engines": {
+    "node": "6.9.2",
+    "npm": "3.10.9"
+  },
   "devDependencies": {
     "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.24.1",
